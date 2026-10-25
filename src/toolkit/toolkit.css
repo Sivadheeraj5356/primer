@@ -108,3 +108,7 @@
 .tk-field input[type=checkbox] { width: 20px; }
 .tk-check { white-space: nowrap; }
 .tk-off { background: #f7e4d7; border-radius: 10px; padding: 12px 14px; font-weight: 600; line-height: 1.5; }
+
+button.tk-chip { border: 0; cursor: pointer; font-family: inherit; }
+.tk-chip.on { background: #1f5c45; color: #f5efeb; }
+.tk-pre { background: #fffdf7; border: 1px solid #e6dcc8; padding: 8px; overflow-x: auto; font-size: 13px; }
