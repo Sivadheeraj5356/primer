@@ -1,0 +1,16 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>Primer</title>
+    <!-- SPA fallback for static hosts (e.g. GitHub Pages): remember the real
+         path in sessionStorage and bounce to the app root, which then
+         restores it. Keeps /app, /learn/... and /play/... working on hosts
+         without rewrite rules. -->
+    <script>
+      sessionStorage.setItem('primer:redirect', location.pathname + location.search + location.hash)
+      location.replace('/')
+    </script>
+  </head>
+  <body></body>
+</html>
