@@ -457,4 +457,4 @@ function Bonds({ a, onDone }: { a: Extract<Activity, { kind: 'bonds' }>; onDone:
       </Flex>
     </Box>
   )
-  }
+}
