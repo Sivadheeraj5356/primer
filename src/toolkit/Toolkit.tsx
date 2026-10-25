@@ -1,7 +1,7 @@
-import { useEffect, useMemo, useState } from 'react'
+import { useEffect, useMemo, useRef, useState } from 'react'
 import { Link, useLocation, useNavigate, useParams } from 'react-router-dom'
 import { TOOLS, CHATS, type Field, type ToolSpec, type Audience } from '../../shared/toolkit'
-import { callAI, useAIStatus, loadSaved, pushHistory, readAttachment, saveSaved, saveTopic, type Attachment } from './api'
+import { buildBackup, downloadJSON, parseBackup, saveRoster, callAI, useAIStatus, loadSaved, pushHistory, readAttachment, saveSaved, saveTopic, type Attachment } from './api'
 import { LIBRARY } from './library'
 import { makeDrill, solveLocally, type Op } from './math'
 import type { WS } from './types'
@@ -87,10 +87,39 @@ export function ToolkitHub() {
       <div className="tk-grid">
         {list.map((t) => <Link key={t.id} className="tk-tool" to={`/toolkit/${t.id}`}><h3>{t.title}</h3><p>{t.blurb}</p></Link>)}
         {chats.map(([id, c]) => <Link key={id} className="tk-tool" to={`/toolkit/${id}`}><h3>{c.title}</h3><p>{c.blurb}</p></Link>)}
+        <Link className="tk-tool" to="/toolkit/assistant"><h3>AI Assistant (one chat, three helpers)</h3><p>Homework coach, study assistant and coding helper in one window. Pick a helper, then chat.</p></Link>
+        <Link className="tk-tool" to="/toolkit/roster"><h3>Class Roster and Report Comments</h3><p>Keep a class list in this browser and draft a comment per student. Initials only, stored on your device.</p></Link>
         <Link className="tk-tool" to="/toolkit/library"><h3>Worksheet Library</h3><p>Ready made worksheets, filtered by country, curriculum, subject and grade. No AI needed.</p></Link>
         <Link className="tk-tool" to="/toolkit/drills"><h3>Maths Practice Sheets</h3><p>Fresh addition, subtraction, times tables and division sheets for any grade. Made on your device.</p></Link>
       </div>
+      <BackupBox onDone={() => setSaved(loadSaved())} />
       <p className="tk-sub">Boards and curricula are named so the AI can aim at them. Check each result against your own syllabus before you use it.</p>
+    </div>
+  )
+}
+
+function BackupBox({ onDone }: { onDone: () => void }) {
+  const [msg, setMsg] = useState('')
+  const ref = useRef<HTMLInputElement>(null)
+  const onFile = async (f?: File) => {
+    if (!f) return
+    try {
+      if (f.size > 1_500_000) throw new Error('That file is too large to be a Primer backup.')
+      const b = parseBackup(await f.text(), TOOLS.map((t) => t.id).concat(Object.keys(CHATS)))
+      if (!confirm(`Replace the saved topics, recent work and class roster in this browser with this backup? It holds ${b.saved.topics.length} topics, ${b.saved.history.length} recent items and ${b.roster.length} students.`)) return
+      saveSaved(b.saved); saveRoster(b.roster); onDone(); setMsg('Backup restored in this browser.')
+    } catch (e: any) { setMsg(e.message || 'Could not read that file.') }
+  }
+  return (
+    <div className="tk-card">
+      <h2 className="tk-h2">Backup and move to another device</h2>
+      <p className="tk-sub">Your saved topics, recent work and class roster live only in this browser. Download a backup file to keep a copy or open it on another device. The file is plain text you can read. It is not sent anywhere, and it contains your roster notes, so keep it private.</p>
+      <div className="tk-bar">
+        <button className="tk-btn" onClick={() => { downloadJSON('primer-toolkit-backup.json', buildBackup()); setMsg('Backup downloaded.') }}>Download backup</button>
+        <button className="tk-btn ghost" onClick={() => ref.current?.click()}>Restore from backup</button>
+        <input ref={ref} type="file" accept="application/json,.json" hidden onChange={(e) => { onFile(e.target.files?.[0]); e.target.value = '' }} />
+      </div>
+      {msg && <p role="status" className="tk-sub">{msg}</p>}
     </div>
   )
 }
@@ -287,4 +316,4 @@ export function DrillsPage() {
       <WorksheetView ws={ws} />
     </div>
   )
-              }
+}
