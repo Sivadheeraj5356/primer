@@ -1,0 +1,110 @@
+.tk { max-width: 920px; margin: 0 auto; font-family: 'Nunito Sans', ui-sans-serif, system-ui, sans-serif; color: #232a26; }
+.tk-h1 { font-size: 34px; margin: 8px 0 6px; color: #1b381e; }
+.tk-h2 { font-size: 22px; margin: 0 0 4px; color: #1b381e; }
+.tk-lead { font-size: 17px; line-height: 1.55; max-width: 720px; margin: 0 0 18px; }
+.tk-sub { font-size: 14px; color: #5b6459; margin: 4px 0 8px; line-height: 1.5; }
+.tk-back { display: inline-block; margin-bottom: 8px; color: #1f5c45; font-weight: 700; text-decoration: none; }
+.tk-linkbtn { background: none; border: 0; padding: 0; cursor: pointer; font: inherit; font-weight: 700; }
+.tk-card { background: #fffdf7; border: 1px solid #e4dcc8; border-radius: 16px; padding: 20px; margin: 16px 0; }
+.tk-bar { display: flex; flex-wrap: wrap; gap: 10px; align-items: center; margin: 12px 0; }
+.tk-grow { flex: 1; min-width: 220px; }
+.tk input[type=text], .tk input:not([type]), .tk input[type=number], .tk select, .tk textarea {
+  font: inherit; font-size: 16px; padding: 10px 12px; border: 1.5px solid #cfc4a6; border-radius: 10px; background: #fff; color: #232a26; max-width: 100%;
+}
+.tk textarea { width: 100%; resize: vertical; }
+.tk input:focus-visible, .tk select:focus-visible, .tk textarea:focus-visible, .tk-btn:focus-visible, .tk-tool:focus-visible, .tk-flash:focus-visible, .tk-choice:focus-visible, .tk-tile:focus-visible { outline: 3px solid #e26d38; outline-offset: 2px; }
+.tk-btn {
+  display: inline-flex; align-items: center; justify-content: center; font: inherit; font-weight: 700; font-size: 15px;
+  padding: 10px 18px; border-radius: 999px; border: 1.5px solid #1b381e; background: #1b381e; color: #f5efeb; cursor: pointer; text-decoration: none; min-height: 44px;
+}
+.tk-btn.ghost { background: transparent; color: #1b381e; }
+.tk-btn:disabled { opacity: 0.5; cursor: not-allowed; }
+.tk-inline { display: inline-flex; gap: 8px; align-items: center; font-size: 14px; font-weight: 600; }
+.tk-tabs { display: flex; flex-wrap: wrap; gap: 8px; margin: 22px 0 12px; }
+.tk-tab { font: inherit; font-weight: 700; padding: 8px 16px; border-radius: 999px; border: 1.5px solid #cfc4a6; background: #fffdf7; cursor: pointer; min-height: 40px; }
+.tk-tab.on { background: #1b381e; color: #f5efeb; border-color: #1b381e; }
+.tk-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 14px; }
+.tk-tool { display: block; text-align: left; background: #fffdf7; border: 1px solid #e4dcc8; border-radius: 14px; padding: 16px; text-decoration: none; color: inherit; cursor: pointer; font: inherit; }
+.tk-tool:hover { border-color: #1b381e; }
+.tk-tool h3 { margin: 4px 0 6px; font-size: 18px; color: #1b381e; }
+.tk-tool p { margin: 0; font-size: 14px; line-height: 1.5; color: #4a5249; }
+.tk-chips { display: flex; flex-wrap: wrap; gap: 8px; margin: 8px 0; }
+.tk-chip { padding: 6px 12px; border-radius: 999px; background: #f7e4d7; color: #7a3a14; text-decoration: none; font-size: 14px; font-weight: 600; }
+.tk-hist { margin: 8px 0; padding-left: 18px; }
+.tk-fields { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 14px; }
+.tk-field { display: flex; flex-direction: column; gap: 6px; font-size: 14px; font-weight: 700; }
+.tk-field.wide { grid-column: 1 / -1; }
+.tk-field input, .tk-field select { width: 100%; }
+.tk-checks { display: flex; flex-wrap: wrap; gap: 8px 16px; font-weight: 600; }
+.tk-check { display: inline-flex; gap: 6px; align-items: center; }
+.tk-upload { display: flex; gap: 10px; margin-top: 12px; flex-wrap: wrap; }
+.tk-err { color: #a3321d; font-weight: 600; }
+.tk-notice { background: #f7e4d7; border-radius: 10px; padding: 10px 14px; font-size: 14px; }
+.tk-title { font-family: 'Literata', Georgia, serif; font-size: 26px; margin: 0 0 8px; color: #1b381e; }
+.tk-school { font-weight: 800; letter-spacing: 0.03em; text-transform: uppercase; font-size: 14px; }
+.tk-sheet { background: #fff; border: 1px solid #e4dcc8; border-radius: 6px; padding: 28px 32px; margin: 12px 0; }
+.tk-sheet-head { display: flex; gap: 14px; align-items: center; }
+.tk-logo { max-height: 64px; max-width: 120px; object-fit: contain; }
+.tk-nameline { display: flex; justify-content: space-between; flex-wrap: wrap; gap: 8px; font-size: 14px; border-bottom: 1.5px solid #232a26; padding-bottom: 8px; margin-bottom: 10px; }
+.tk-instr { font-style: normal; font-weight: 600; }
+.tk-qs { padding-left: 22px; }
+.tk-qs > li { margin: 0 0 16px; break-inside: avoid; }
+.tk-opts { margin: 6px 0 0; padding-left: 26px; }
+.tk-opts-inline { margin-top: 6px; font-weight: 700; }
+.tk-line { margin-top: 10px; color: #777; overflow: hidden; white-space: nowrap; }
+.tk-match { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-top: 8px; }
+.tk-callout { border: 1.5px dashed #b9ae92; border-radius: 10px; padding: 10px 14px; margin: 12px 0; break-inside: avoid; }
+.tk-key { margin-top: 30px; border-top: 2px solid #232a26; padding-top: 12px; break-before: page; page-break-before: always; }
+.tk-expl { color: #4a5249; font-size: 14px; }
+.tk-edit { display: flex; flex-direction: column; gap: 6px; }
+.tk-quizq { margin: 18px 0; }
+.tk-choices { display: grid; gap: 8px; margin-top: 8px; }
+.tk-choice { text-align: left; font: inherit; padding: 10px 14px; border: 1.5px solid #cfc4a6; border-radius: 10px; background: #fff; cursor: pointer; min-height: 44px; }
+.tk-choice.sel { border-color: #1b381e; background: #e9ecdf; }
+.tk-choice.ok { border-color: #1b381e; background: #dde7d6; font-weight: 700; }
+.tk-choice.bad { border-color: #b3402a; background: #f6e2dc; }
+.tk-sec h3 { margin: 18px 0 4px; font-size: 18px; color: #1b381e; }
+.tk-sec p { margin: 6px 0; line-height: 1.6; }
+.tk-table { border-collapse: collapse; width: 100%; font-size: 14px; }
+.tk-table th, .tk-table td { border: 1px solid #cfc4a6; padding: 8px 10px; text-align: left; vertical-align: top; }
+.tk-table thead th { background: #e9ecdf; }
+.tk-two { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+.tk-cards { display: grid; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); gap: 12px; }
+.tk-flash { text-align: left; font: inherit; background: #fff; border: 1.5px solid #cfc4a6; border-radius: 14px; padding: 16px; cursor: pointer; display: flex; flex-direction: column; gap: 8px; min-height: 100px; }
+.tk-flash.open { background: #f2f5ec; border-color: #1b381e; }
+.tk-flash-front { font-weight: 800; font-size: 17px; color: #1b381e; }
+.tk-flash-back { line-height: 1.5; }
+.tk-hint { font-size: 13px; color: #7b7461; }
+.tk-memory { display: grid; grid-template-columns: repeat(auto-fill, minmax(130px, 1fr)); gap: 10px; margin: 10px 0; }
+.tk-tile { font: inherit; font-size: 14px; min-height: 84px; padding: 8px; border-radius: 12px; border: 2px solid #cfc4a6; background: #1b381e; color: #f5efeb; cursor: pointer; font-weight: 700; }
+.tk-tile.up { background: #fffdf7; color: #232a26; border-color: #1b381e; }
+.tk-tile.done { background: #dde7d6; }
+.tk-scr { display: flex; gap: 8px; flex-wrap: wrap; margin: 12px 0; }
+.tk-scr span { width: 44px; height: 52px; display: inline-flex; align-items: center; justify-content: center; font-size: 26px; font-weight: 800; background: #fff; border: 2px solid #cfc4a6; border-radius: 10px; text-transform: uppercase; }
+.tk-steps { padding-left: 22px; line-height: 1.8; }
+.tk-answer { font-size: 20px; }
+.tk-props { columns: 2; font-size: 14px; }
+.tk-chat { min-height: 220px; max-height: 480px; overflow: auto; display: flex; flex-direction: column; gap: 10px; padding: 4px; }
+.tk-msg { padding: 10px 14px; border-radius: 14px; max-width: 85%; white-space: pre-wrap; line-height: 1.55; }
+.tk-msg.user { align-self: flex-end; background: #1b381e; color: #f5efeb; }
+.tk-msg.model { align-self: flex-start; background: #f2f5ec; border: 1px solid #dde7d6; }
+.tk-chatbox textarea { margin-top: 8px; }
+@media (max-width: 640px) {
+  .tk-h1 { font-size: 28px; }
+  .tk-sheet { padding: 18px 16px; }
+  .tk-match, .tk-two { grid-template-columns: 1fr; }
+  .tk-props { columns: 1; }
+}
+@media print {
+  .tk-sheet, .tk-card.print-root, .print-root { border: 0 !important; padding: 0 !important; margin: 0 !important; box-shadow: none !important; }
+  .tk-card { border: 0; padding: 0; margin: 0; }
+  .tk-flash { break-inside: avoid; }
+}
+
+.tk a:not(.tk-btn):not(.tk-tool):not(.tk-chip), .tk a:not(.tk-btn):not(.tk-tool):not(.tk-chip):visited { color: #1f5c45; text-decoration-color: #e26d38; text-underline-offset: 3px; }
+.tk-consent { display: flex; gap: 10px; align-items: flex-start; font-size: 14px; line-height: 1.5; background: #f7e4d7; border-radius: 10px; padding: 10px 14px; margin: 12px 0; }
+.tk-consent input { margin-top: 3px; width: 20px; height: 20px; flex: none; }
+.tk input[type=checkbox] { accent-color: #1b381e; width: 20px; height: 20px; flex: none; }
+.tk-field input[type=checkbox] { width: 20px; }
+.tk-check { white-space: nowrap; }
+.tk-off { background: #f7e4d7; border-radius: 10px; padding: 12px 14px; font-weight: 600; line-height: 1.5; }
