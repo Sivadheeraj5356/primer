@@ -14,15 +14,24 @@ const clickLink = (text) => page.evaluate((t) => {
 // Landing page
 await page.goto(base, { waitUntil: 'networkidle0', timeout: 20000 })
 ok('landing renders hero', await page.$('.lp-hero') !== null)
-ok('landing shows product peek', await page.$('.lp-peek img') !== null)
+ok('landing shows product peek', await page.$('.lp-shot img') !== null)
 ok('landing has no learner state UI', await page.evaluate(() => !document.body.innerText.includes('Learning as')))
 ok('landing has public header, not app chrome', await page.evaluate(() => {
-  const t = document.querySelector('.landing-header')?.innerText || ''
+  const t = document.querySelector('.lp-nav')?.innerText || ''
   return !t.includes('Learning as') && !t.includes('For parents') && t.includes('Primer')
 }))
 ok('landing CTA present', await clickLink('Open the app'))
 await new Promise(r => setTimeout(r, 1200))
 ok('app route reached', page.url().endsWith('/app'))
+
+// Direct loads of nested routes and legal/404 pages (guards against relative asset paths)
+for (const [path, sel] of [['learn/reading', 'a[href^="/play/"]'], ['play/numbers', '#root *'], ['parents', '#root *'], ['privacy', '.lp-page'], ['terms', '.lp-page'], ['nope', '.lp-page']]) {
+  const pg = await b.newPage()
+  await pg.goto(base + path, { waitUntil: 'networkidle0', timeout: 20000 })
+  ok('direct load /' + path, (await pg.$(sel)) !== null && (await pg.evaluate(() => document.getElementById('root').innerText.length)) > 40)
+  await pg.close()
+}
+await page.goto(base, { waitUntil: 'networkidle0' }); await clickLink('Open the app'); await new Promise(r => setTimeout(r, 1200))
 
 // Learning home at /app
 ok('pathway cards render', (await page.$$('.sb-path')).length === 3)
