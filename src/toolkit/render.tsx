@@ -1,3 +1,4 @@
+import { Markdown } from './Markdown'
 import { useMemo, useRef, useState, type ReactNode } from 'react'
 import { callAI, useAIStatus, readAttachment, type Attachment } from './api'
 import type { Q, WS } from './types'
@@ -458,7 +459,7 @@ export function ChatView({ toolId }: { toolId: string }) {
     <div className="tk-card">
       <div className="tk-chat" aria-live="polite">
         {msgs.length === 0 && <p className="tk-sub">{cfg.blurb}</p>}
-        {msgs.map((m, i) => <div key={i} className={`tk-msg ${m.role}`}>{m.text}</div>)}
+        {msgs.map((m, i) => <div key={i} className={`tk-msg ${m.role}`}>{m.role === 'model' ? <Markdown text={m.text} /> : m.text}</div>)}
         {busy && <div className="tk-msg model">Thinking…</div>}
       </div>
       {err && <p role="alert" className="tk-err">{err}</p>}
