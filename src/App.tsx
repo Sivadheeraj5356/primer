@@ -2,6 +2,8 @@ import { BrowserRouter, Route, Routes } from 'react-router-dom'
 import { Layout } from './components/Layout'
 import { Landing } from './landing/Landing'
 import { Privacy, Terms, NotFound } from './landing/Pages'
+import { RosterPage } from './toolkit/Roster'
+import { AssistantPage } from './toolkit/Assistant'
 import { Home } from './routes/Home'
 import { Learn } from './routes/Learn'
 import { Play } from './routes/Play'
@@ -21,6 +23,8 @@ export default function App() {
           <Route path="/play/:domain" element={<Play />} />
           <Route path="/parents" element={<Parents />} />
           <Route path="/toolkit" element={<ToolkitHub />} />
+          <Route path="/toolkit/roster" element={<RosterPage />} />
+          <Route path="/toolkit/assistant" element={<AssistantPage />} />
           <Route path="/toolkit/library" element={<LibraryPage />} />
           <Route path="/toolkit/drills" element={<DrillsPage />} />
           <Route path="/toolkit/:tool" element={<ToolPage />} />
