@@ -260,3 +260,9 @@ h1, h2, h3, .rt-Heading {
 .sb-keeps > *, .sb-paths > *, .sb-hero > *, .sb-riddle > * { min-width: 0; }
 .sb-book img { min-width: 0; }
 
+
+/* Print: only the generated sheet */
+@media print {
+  .no-print { display: none !important; }
+  html, body { background: #fff !important; }
+}
