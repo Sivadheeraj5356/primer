@@ -22,7 +22,7 @@ const STEPS = [
 ]
 
 const FAQ = [
-  ['Does Primer use AI?', 'No. Every adaptation rule is ordinary code that you can read in the source. The mastery estimate, the difficulty ladder and the review schedule are deterministic. Nothing is sent to a model.'],
+  ['Does Primer use AI?', 'The learning app for children does not. Every adaptation rule is ordinary code that you can read in the source, and nothing a child does is sent to a model. The separate Teacher and parent toolkit does use AI (Google Gemini) to write worksheets, quizzes and similar material from what an adult types.'],
   ['Where is my child’s progress stored?', 'In this browser’s local storage, on this device only. Clearing site data erases it. There are no accounts, and Primer has no server that receives progress.'],
   ['Does it actually improve learning?', 'We have not tested that. Primer is a working prototype built on common practice ideas such as small steps and spaced review. It makes no claim about learning outcomes.'],
   ['What can my child learn here?', 'Sixteen skills in three pathways: reading, writing and numbers. Reading runs from letter sounds to little stories. Writing starts with strokes and ends with first words. Numbers cover counting, comparing, adding and taking away.'],
@@ -66,6 +66,7 @@ export function Nav() {
           <Link to="/" className="lp-brand" onClick={close}><img src={logoImage} alt="" />Primer</Link>
           <nav className="lp-links" aria-label="Main">
             <a href="/#how">How it works</a>
+            <Link to="/toolkit">Toolkit</Link>
             <a href="/#faq">FAQ</a>
             <a href="https://github.com/Sivadheeraj5356/primer" target="_blank" rel="noreferrer">Source</a>
           </nav>
@@ -75,6 +76,7 @@ export function Nav() {
       </div>
       <div className={`lp-overlay${open ? ' open' : ''}`} aria-hidden={!open}>
         <a href="/#how" onClick={close} tabIndex={open ? 0 : -1}>How it works</a>
+        <Link to="/toolkit" onClick={close} tabIndex={open ? 0 : -1}>Toolkit</Link>
         <a href="/#faq" onClick={close} tabIndex={open ? 0 : -1}>FAQ</a>
         <a href="https://github.com/Sivadheeraj5356/primer" target="_blank" rel="noreferrer" tabIndex={open ? 0 : -1}>Source</a>
         <Link to="/app" onClick={close} tabIndex={open ? 0 : -1}>Open the app</Link>
@@ -92,6 +94,7 @@ export function Foot() {
           <Link to="/privacy">Privacy</Link>
           <Link to="/terms">Terms</Link>
           <Link to="/parents">For parents</Link>
+          <Link to="/toolkit">Toolkit</Link>
           <a href="https://github.com/Sivadheeraj5356/primer" target="_blank" rel="noreferrer">GitHub</a>
         </nav>
       </div>
@@ -175,7 +178,7 @@ export function Landing() {
             <h2 className="lp-rv">The prototype, in numbers</h2>
             <p className="lp-lede lp-rv">These are counts of what the app contains today. They are not learning results.</p>
             <div className="lp-stats">
-              {[['16', 'skills across three pathways'], ['3', 'days until a mastered skill returns for review'], ['2', 'first try successes to climb a rung'], ['0', 'accounts, trackers or AI services']].map(([n, l]) => (
+              {[['16', 'skills across three pathways'], ['3', 'days until a mastered skill returns for review'], ['2', 'first try successes to climb a rung'], ['0', 'accounts or trackers']].map(([n, l]) => (
                 <div className="lp-stat lp-rv" key={l}><b>{n}</b><span>{l}</span></div>
               ))}
             </div>
