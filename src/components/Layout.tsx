@@ -9,7 +9,7 @@ function Header() {
   const { learner } = useLearner()
   const [sound, setSound] = useState(isSpeechEnabled())
   return (
-    <Box style={{ borderBottom: '1px solid #e4dcc8', background: '#fffdf7' }}>
+    <Box className="no-print" style={{ borderBottom: '1px solid #e4dcc8', background: '#fffdf7' }}>
       <Container size="3" px={{ initial: '5', sm: '6' }}>
         <Flex align="center" justify="between" py="3">
           <Flex align="center" gap="3" asChild>
@@ -33,6 +33,9 @@ function Header() {
             <Link to="/parents" style={{ textDecoration: 'none' }}>
               <Text size="2" weight="medium" style={{ color: '#1f5c45' }}>For parents</Text>
             </Link>
+            <Link to="/toolkit" style={{ textDecoration: 'none' }}>
+              <Text size="2" weight="medium" style={{ color: '#1f5c45' }}>Toolkit</Text>
+            </Link>
           </Flex>
         </Flex>
       </Container>
@@ -42,11 +45,11 @@ function Header() {
 
 function Footer() {
   return (
-    <Box mt="8" py="5" style={{ borderTop: '1px solid #e4dcc8' }}>
+    <Box className="no-print" mt="8" py="5" style={{ borderTop: '1px solid #e4dcc8' }}>
       <Container size="3" px={{ initial: '5', sm: '6' }}>
         <Flex justify="between" align="center" wrap="wrap" gap="2">
           <Text size="1" color="gray">
-            Primer is an early prototype. Progress is stored only in this browser - no accounts, no AI backend.
+            Primer is an early prototype. The learning app stores progress only in this browser, with no accounts and no AI. The toolkit for adults uses AI.
           </Text>
           <Text size="1" color="gray">Inspired by Neal Stephenson’s <i>The Diamond Age</i>.</Text>
         </Flex>
