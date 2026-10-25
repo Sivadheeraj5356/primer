@@ -6,6 +6,7 @@ import { Home } from './routes/Home'
 import { Learn } from './routes/Learn'
 import { Play } from './routes/Play'
 import { Parents } from './routes/Parents'
+import { ToolkitHub, ToolPage, LibraryPage, DrillsPage } from './toolkit/Toolkit'
 
 export default function App() {
   return (
@@ -19,6 +20,10 @@ export default function App() {
           <Route path="/learn/:domain" element={<Learn />} />
           <Route path="/play/:domain" element={<Play />} />
           <Route path="/parents" element={<Parents />} />
+          <Route path="/toolkit" element={<ToolkitHub />} />
+          <Route path="/toolkit/library" element={<LibraryPage />} />
+          <Route path="/toolkit/drills" element={<DrillsPage />} />
+          <Route path="/toolkit/:tool" element={<ToolPage />} />
         </Route>
         <Route path="*" element={<NotFound />} />
       </Routes>
