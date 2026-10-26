@@ -49,5 +49,24 @@ if (st.level !== 1 || st.mastery > 0.2) { console.error('FAIL struggler state', 
 const p2 = pickNext(struggler, 'numbers')
 if (!p2) { console.error('FAIL struggler has no pick'); failures++ }
 
+// 4. The ladder is patient: one success does not climb, two in a row do; one miss does not drop, two do.
+const lad: LearnerState = { name: 't3', createdAt: Date.now(), skills: {}, sessions: [], totalStars: 0 }
+recordOutcome(lad, 'n-add-10', { correct: true, difficulty: 1, firstTry: true })
+if (lad.skills['n-add-10'].level !== 1) { console.error('FAIL climbed after one success'); failures++ }
+recordOutcome(lad, 'n-add-10', { correct: true, difficulty: 1, firstTry: true })
+if (lad.skills['n-add-10'].level !== 2) { console.error('FAIL did not climb after two'); failures++ }
+recordOutcome(lad, 'n-add-10', { correct: false, difficulty: 2, firstTry: false })
+if (lad.skills['n-add-10'].level !== 2) { console.error('FAIL dropped after one miss'); failures++ }
+recordOutcome(lad, 'n-add-10', { correct: false, difficulty: 2, firstTry: false })
+if (lad.skills['n-add-10'].level !== 1) { console.error('FAIL did not drop after two misses'); failures++ }
+// Hinted-but-correct answers hold the rung steady.
+recordOutcome(lad, 'n-add-10', { correct: true, difficulty: 1, firstTry: false })
+recordOutcome(lad, 'n-add-10', { correct: true, difficulty: 1, firstTry: false })
+if (lad.skills['n-add-10'].level !== 1) { console.error('FAIL climbed on hinted answers'); failures++ }
+// Old saved learners without a streak field still work.
+const old: LearnerState = { name: 't4', createdAt: 0, skills: { 'n-add-10': { mastery: 0.5, attempts: 4, correct: 3, level: 1, lastPracticed: 1 } }, sessions: [], totalStars: 0 }
+recordOutcome(old, 'n-add-10', { correct: true, difficulty: 1, firstTry: true })
+if (old.skills['n-add-10'].attempts !== 5) { console.error('FAIL old state'); failures++ }
+
 console.log(failures === 0 ? 'ALL ENGINE TESTS PASSED' : `${failures} FAILURES`)
 process.exit(failures === 0 ? 0 : 1)
