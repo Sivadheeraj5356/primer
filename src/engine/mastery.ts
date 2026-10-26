@@ -10,6 +10,7 @@ export interface SkillState {
   correct: number
   level: number // current rung on the skill's difficulty ladder (1..maxLevel)
   lastPracticed: number | null // epoch ms
+  streak?: number // consecutive first-try successes (+) or misses (-) on the current rung
 }
 
 export interface LearnerState {
@@ -68,20 +69,24 @@ export function recordOutcome(
     : prev.mastery + EWMA_ALPHA * (signal - prev.mastery)
   const clamped = Math.max(0, Math.min(1, mastery))
 
-  // Move the difficulty ladder: two first-try successes climb a rung,
-  // a struggle on the current rung steps down so the learner re-finds footing.
+  // Move the difficulty ladder with a little patience: two first-try successes
+  // in a row at the current rung climb one rung, two misses in a row step down.
+  // One lucky answer or one slip no longer moves the learner.
   let level = prev.level
-  if (outcome.correct && outcome.firstTry && outcome.difficulty >= level && level < skill.maxLevel) {
-    level += 1
-  } else if (!outcome.correct && outcome.difficulty <= level && level > 1) {
-    level -= 1
-  }
+  let streak = prev.streak ?? 0
+  const atRung = outcome.difficulty >= level
+  if (outcome.correct && outcome.firstTry) streak = streak > 0 ? streak + 1 : 1
+  else if (!outcome.correct) streak = streak < 0 ? streak - 1 : -1
+  else streak = 0 // correct but needed a hint: hold steady
+  if (streak >= 2 && atRung && level < skill.maxLevel) { level += 1; streak = 0 }
+  else if (streak <= -2 && outcome.difficulty <= level && level > 1) { level -= 1; streak = 0 }
 
   learner.skills[skillId] = {
     mastery: clamped,
     attempts: prev.attempts + 1,
     correct: prev.correct + (outcome.correct ? 1 : 0),
     level,
+    streak,
     lastPracticed: Date.now(),
   }
 }
