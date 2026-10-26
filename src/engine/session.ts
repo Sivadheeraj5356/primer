@@ -49,26 +49,35 @@ export function makeActivity(skillId: string, difficulty: number): Activity {
       return { kind: 'word-build', skillId, difficulty, word: target.word, emoji: target.emoji, tiles: shuffle(target.word.split('')) }
     }
     case 'r-word-families': {
-      const fam = pick(WORD_FAMILIES)
+      // Rung 1 uses the first three families; rung 2 draws on all of them.
+      const fam = pick(difficulty === 1 ? WORD_FAMILIES.slice(0, 3) : WORD_FAMILIES)
       const answer = pick(fam.words)
       const outsiders = WORD_FAMILIES.filter((f) => f.family !== fam.family).flatMap((f) => f.words)
       const options = shuffle([answer, ...shuffle(outsiders).slice(0, 2)])
       return { kind: 'family-pick', skillId, difficulty, family: fam.family, options, answer }
     }
     case 'r-sight-words': {
-      const word = pick(SIGHT_WORDS)
-      const options = shuffle([word, ...shuffle(SIGHT_WORDS.filter((w) => w !== word)).slice(0, 2)])
+      // Rung 1: the first eight (most common) words; rung 2: the full list.
+      const words = difficulty === 1 ? SIGHT_WORDS.slice(0, 8) : SIGHT_WORDS
+      const word = pick(words)
+      const options = shuffle([word, ...shuffle(words.filter((w) => w !== word)).slice(0, 2)])
       return { kind: 'sight-pick', skillId, difficulty, word, options }
     }
     case 'r-sentences': {
-      const s = pick(SENTENCES)
+      // Rung 1: the shorter half of the sentences; rung 2: all of them.
+      const byLen = [...SENTENCES].sort((x, y) => x.text.length - y.text.length)
+      const s = pick(difficulty === 1 ? byLen.slice(0, Math.ceil(byLen.length / 2)) : SENTENCES)
       return { kind: 'sentence-read', skillId, difficulty, text: s.text, emoji: s.emoji, question: s.question, options: s.options, answer: s.answer }
     }
     case 'r-stories':
-      return { kind: 'story-read', skillId, difficulty, storyId: pick(STORIES).id }
+      // Rung 1: the shortest story; rung 2: any story.
+      const byLen = [...STORIES].sort((x, y) => JSON.stringify(x).length - JSON.stringify(y).length)
+      return { kind: 'story-read', skillId, difficulty, storyId: pick(difficulty === 1 ? byLen.slice(0, 1) : STORIES).id }
 
     case 'w-strokes': {
-      const shape = WARMUP_STROKES[Math.min(rnd(WARMUP_STROKES.length), WARMUP_STROKES.length - 1)]
+      // Rung 1: the first four simple strokes; rung 2: all strokes.
+      const strokes = difficulty === 1 ? WARMUP_STROKES.slice(0, 4) : WARMUP_STROKES
+      const shape = strokes[rnd(strokes.length)]
       return { kind: 'trace', skillId, difficulty, mode: 'shape', content: shape.id, label: shape.label }
     }
     case 'w-uppercase': {
@@ -82,7 +91,8 @@ export function makeActivity(skillId: string, difficulty: number): Activity {
       return { kind: 'trace', skillId, difficulty, mode: 'letter', content: ch, label: `Small letter ${ch}` }
     }
     case 'w-words': {
-      const target = pick(CVC_WORDS)
+      // Rung 1: words with the vowel a; rung 2: all short words.
+      const target = pick(difficulty === 1 ? CVC_WORDS.filter((w) => w.vowel === 'a') : CVC_WORDS)
       return { kind: 'trace', skillId, difficulty, mode: 'word', content: target.word, label: `Write "${target.word}"` }
     }
 
@@ -92,13 +102,16 @@ export function makeActivity(skillId: string, difficulty: number): Activity {
       return { kind: 'count', skillId, difficulty, count, emoji: pick(COUNT_EMOJIS), options: numberOptions(count, 2, 1) }
     }
     case 'n-count-20': {
-      const count = 10 + rnd(11)
+      // Rung 1: 10 to 14; rung 2: 10 to 20.
+      const count = 10 + rnd(difficulty === 1 ? 5 : 11)
       return { kind: 'count', skillId, difficulty, count, emoji: pick(COUNT_EMOJIS), options: numberOptions(count, 3, 1) }
     }
     case 'n-compare': {
       let a = 1 + rnd(9)
       let b = 1 + rnd(9)
       if (a === b) b = a === 9 ? a - 2 : a + 1
+      // Rung 1: the groups differ by at least 3, so the answer is easy to see.
+      if (difficulty === 1 && Math.abs(a - b) < 3) { b = a <= 5 ? a + 3 : a - 3 }
       return { kind: 'compare', skillId, difficulty, a, b, emojiA: pick(COUNT_EMOJIS), emojiB: pick(COUNT_EMOJIS), ask: Math.random() < 0.5 ? 'more' : 'fewer' }
     }
     case 'n-add-10': {
