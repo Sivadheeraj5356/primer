@@ -187,7 +187,7 @@ export function Trace({ a, onDone }: { a: TraceActivity; onDone: (correct: boole
         <canvas
           ref={canvasRef}
           className="trace-canvas"
-          style={{ width: 'min(90vw, 360px)', height: 'min(90vw, 360px)' }}
+          style={{ width: 'min(100%, 360px)', height: 'auto', aspectRatio: '1 / 1' }}
           onPointerDown={(e) => {
             (e.target as HTMLElement).setPointerCapture(e.pointerId)
             drawingRef.current = true
@@ -203,7 +203,7 @@ export function Trace({ a, onDone }: { a: TraceActivity; onDone: (correct: boole
           onPointerUp={() => { drawingRef.current = false; lastRef.current = null }}
           onPointerLeave={() => { drawingRef.current = false; lastRef.current = null }}
         />
-        <div className="mastery-bar" style={{ width: 'min(90vw, 360px)' }}>
+        <div className="mastery-bar" style={{ width: 'min(100%, 360px)' }}>
           <div style={{ width: `${Math.round(coverage * 100)}%` }} />
         </div>
         <Flex gap="3">
@@ -214,4 +214,4 @@ export function Trace({ a, onDone }: { a: TraceActivity; onDone: (correct: boole
       </Flex>
     </Box>
   )
-}
+    }
