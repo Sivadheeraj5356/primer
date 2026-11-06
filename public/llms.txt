@@ -1,0 +1,17 @@
+# Primer - a patient tutor for young learners
+
+> Primer is an open source adaptive tutor for young children: reading, writing and arithmetic. It adapts to each child's skill level, is free and private, and needs no account. Built by Siva Dheeraj.
+
+## Parts
+- / - landing page
+- /app - the learning app (reading, writing, arithmetic practice that adapts by skill)
+- /toolkit - teacher and parent toolkit: worksheets, quizzes, lesson plans, grading, study helpers and printables
+
+## Facts
+- Free, no account, no children's personal data collected
+- Open source: https://github.com/Sivadheeraj5356/primer
+
+## Links
+- App: https://primer-tutor.sivadheeraj5356.workers.dev/
+- Source: https://github.com/Sivadheeraj5356/primer
+- Builder: https://sivadheeraj.vercel.app/
