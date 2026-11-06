@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://primer-tutor.sivadheeraj5356.workers.dev/sitemap.xml
